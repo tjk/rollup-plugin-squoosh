@@ -1,0 +1,57 @@
+{
+  "name": "vite-plugin-squoosh",
+  "version": "0.1.1",
+  "license": "MIT",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "main": "dist/index.cjs.js",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./node_modules/@picgo/bump-version/.cz-config.js"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "./node_modules/@picgo/bump-version/commitlint-picgo"
+    ]
+  },
+  "scripts": {
+    "cz": "git add . && git-cz",
+    "clean": "rimraf dist",
+    "release": "git add . && bump-version",
+    "build": "yarn clean && npx rollup -c rollup.config.js",
+    "lint": "eslint src/index.js test/index.js",
+    "test": "mocha --require @babel/register ./test/index.js",
+    "prepare": "yarn build",
+    "prepublish": "yarn lint && npm test"
+  },
+  "dependencies": {
+    "@squoosh/lib": "^0.3.1",
+    "chalk": "^4.1.1"
+  },
+  "keywords": [
+    "image",
+    "optimization",
+    "rollup",
+    "performance",
+    "webperf"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/register": "^7.14.5",
+    "@picgo/bump-version": "^1.1.0",
+    "eslint": "^7.29.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.52.3",
+    "rollup-plugin-babel": "^4.4.0"
+  }
+}
